@@ -6,7 +6,10 @@ app=build/DisplayToggle.app
 rm -rf "$app"
 mkdir -p "$app/Contents/MacOS"
 
-swiftc -O -o "$app/Contents/MacOS/DisplayToggle" DisplayToggle.swift
+for arch in arm64 x86_64; do
+    swiftc -O -target "$arch-apple-macos13.0" -o "build/DisplayToggle-$arch" DisplayToggle.swift
+done
+lipo -create -output "$app/Contents/MacOS/DisplayToggle" build/DisplayToggle-arm64 build/DisplayToggle-x86_64
 
 cat > "$app/Contents/Info.plist" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
@@ -25,6 +28,7 @@ cat > "$app/Contents/Info.plist" <<'EOF'
 EOF
 
 codesign --force --sign - "$app"
+ditto -c -k --keepParent "$app" build/DisplayToggle.zip
 
 rm -rf /Applications/DisplayToggle.app
 cp -R "$app" /Applications/

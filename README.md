@@ -4,7 +4,19 @@ A minimal macOS menu bar app that turns connected displays off and on without un
 
 Click the menu bar icon to see every display with a checkmark if it's on, then click one to toggle it. **Turn On All Displays** restores everything, and quitting the app does the same. The last active display can't be turned off.
 
-## Build and install
+## Download
+
+Grab `DisplayToggle.zip` from the [latest release](https://github.com/fanchangyong/display-toggle/releases/latest), unzip it, and move `DisplayToggle.app` to `/Applications`. It's a universal build for macOS 13+.
+
+The app is ad-hoc signed, not notarized, so macOS blocks the first launch. Either clear the quarantine flag:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/DisplayToggle.app
+```
+
+or try to open it once, then click **Open Anyway** in System Settings → Privacy & Security.
+
+## Build from source
 
 Requires macOS 13+ and the Xcode command line tools.
 
@@ -12,7 +24,7 @@ Requires macOS 13+ and the Xcode command line tools.
 ./build.sh
 ```
 
-This compiles `DisplayToggle.swift`, ad-hoc signs the bundle, and installs it to `/Applications/DisplayToggle.app`.
+This compiles a universal `DisplayToggle.swift` binary, ad-hoc signs the bundle, zips it to `build/DisplayToggle.zip`, and installs it to `/Applications/DisplayToggle.app`.
 
 ## Start at login
 

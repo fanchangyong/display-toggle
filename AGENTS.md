@@ -2,7 +2,8 @@
 
 Single-file AppKit menu bar app (`DisplayToggle.swift`), built with `swiftc` by `build.sh` — no Xcode project, no SwiftPM, no dependencies.
 
-- Build and install: `./build.sh` (writes `build/DisplayToggle.app`, copies it to `/Applications`).
+- Build and install: `./build.sh` (writes a universal `build/DisplayToggle.app` and `build/DisplayToggle.zip`, copies the app to `/Applications`).
+- Release: bump `CFBundleShortVersionString` in `build.sh`, rebuild, then `gh release create vX.Y build/DisplayToggle.zip`.
 - Check detection without touching any display: `build/DisplayToggle.app/Contents/MacOS/DisplayToggle --list`.
 - Reload the running copy after a rebuild: `launchctl kickstart -k gui/$(id -u)/cc.hushcore.DisplayToggle` (if the login agent is installed), otherwise quit and reopen the app.
 
