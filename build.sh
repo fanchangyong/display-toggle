@@ -20,7 +20,7 @@ cat > "$app/Contents/Info.plist" <<'EOF'
     <key>CFBundleIdentifier</key><string>cc.hushcore.DisplayToggle</string>
     <key>CFBundleExecutable</key><string>DisplayToggle</string>
     <key>CFBundlePackageType</key><string>APPL</string>
-    <key>CFBundleShortVersionString</key><string>1.0</string>
+    <key>CFBundleShortVersionString</key><string>1.1</string>
     <key>LSMinimumSystemVersion</key><string>13.0</string>
     <key>LSUIElement</key><true/>
 </dict>

@@ -79,6 +79,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem.button?.image = NSImage(systemSymbolName: "display.2", accessibilityDescription: "Displays")
         menu.delegate = self
+        // Otherwise NSMenu enables every item whose target responds to its action, ignoring isEnabled.
+        menu.autoenablesItems = false
         statusItem.menu = menu
     }
 
@@ -108,6 +110,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func toggle(_ sender: NSMenuItem) {
         guard let d = sender.representedObject as? Display else { return }
+        if d.active && Displays.list().filter(\.active).count <= 1 {
+            NSSound.beep()
+            return
+        }
         if !Displays.setEnabled(d, !d.active) {
             NSSound.beep()
         }
